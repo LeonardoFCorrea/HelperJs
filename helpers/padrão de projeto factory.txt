@@ -1,0 +1,2 @@
+O padrão de projeto Factory é um dos padrões mais utilizados no desenvolvimento. Ele é mais um da categoria dos patterns 
+responsáveis por criar objetos, como o Builder e o Prototype.

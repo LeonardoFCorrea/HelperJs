@@ -1,0 +1,30 @@
+// aluraframe/client/js/app/controllers/NegociacaoController.js
+// código anterior omitido
+
+ordena(coluna) {
+    // ainda vamos implementar o método!
+}
+//Veja que o método ordena recebe como parâmetro a coluna que queremos ordenar. Lembre-se que ordenaremos nosso modelo pela
+  coluna que o usuário clicar, sendo assim, nada mais justo do que associar o método ordena ao evento click do cabeçalho
+  de cada coluna em NegociacoesView:
+
+//Alterando aluraframe/client/js/app/views/NegociacoesView.js:
+
+  <!-- aluraframe/client/js/app/views/NegociacoesView.js -->
+  <!-- código anterior omitido -->
+  <thead>
+      <tr>
+          <th onclick="negociacaoController.ordena('data')">DATA</th>
+          <th onclick="negociacaoController.ordena('quantidade')">QUANTIDADE</th>
+          <th onclick="negociacaoController.ordena('valor')">VALOR</th>
+          <th onclick="negociacaoController.ordena('volume')">VOLUME</th>
+      </tr>
+  </thead>
+  <!-- código posterior omitido -->
+
+//"Quando associamos a chamada do método ao evento, na chamada do método passamos como parâmetro a coluna que desejamos 
+  ordenar. É importante que cada parâmetro passado exista como uma propriedade em nosso modelo Negociacao. Você deve estar 
+  pensando "Mas Flávio, queremos é ordenar a lista de negociações que ListaNegociacoes guarda". Sim, mas cada negociação 
+  da lista é uma instância da classe Negociacao. Primeiramente, vamos implementar a solução de ordenação sem nos preocupar
+  em alternar ascendentemente ou descendentemente, resolveremos isso depois. Além disso, antes de partir para a solução, 
+  que tal entender como é feito o processo de ordenação de uma lista a partir de algum critério da lista".

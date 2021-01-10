@@ -1,0 +1,25 @@
+//Classe que é pega os valores do aluno
+
+class Aluno {
+
+    constructor(matricula, nome) {
+        this.matricula = matricula;
+        this.nome = nome;
+    }
+}
+
+//Class que pega os valores da prova, sendo aluno referenciando a classe aluno e o valor da nota.
+
+class Prova {
+
+    constructor(aluno, nota) {
+        this.aluno = aluno;
+        this.nota = nota;
+    }
+}
+
+//Filtrar notas acima de 7 e apresentar o nome dos alunos que tiraram nota acima de 7
+
+let aprovados = avaliacoes
+    .filter((prova) => prova.nota >= 7)
+    .map((prova) => prova.aluno.nome);

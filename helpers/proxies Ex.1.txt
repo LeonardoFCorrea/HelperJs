@@ -1,0 +1,35 @@
+Proxies são objetos mentirosos que encapsulam outros, mais notadamente objetos do nosso modelo. Pense em proxies 
+como "cascas" que envolvem objetos. Dentro desse contexto, só podemos "tocar" os objetos encapsulados passando pelo proxy.
+É justamente essa característica que torna o uso desse padrão de projeto tão poderoso.
+Armadilhas serão disparadas mesmo se tentarmos modificar uma propriedade congelada de um objeto, ainda que ele não seja 
+modificado.
+
+//Objeto literal
+
+  let funcionario = {email: 'abc@abc.com'};
+
+//Proxy criado para o objeto literal acima, exibindo no console "Armadilha aqui" toda vez que a propriedade "email" for lida.
+
+let funcionario = {email: 'abc@abc.com'};
+let funcionarioProxy = new Proxy(funcionario,  {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+        return target[prop];
+    }
+
+});
+console.log(funcionarioProxy.email);
+
+//Ou
+
+let funcionario = {email: 'abc@abc.com'};
+let funcionarioProxy = new Proxy(funcionario,  {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+        return Reflect.get(target, prop, receiver);
+    }
+
+});
+console.log(funcionarioProxy.email);

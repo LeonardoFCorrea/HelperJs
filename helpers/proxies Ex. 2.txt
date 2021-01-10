@@ -1,0 +1,21 @@
+//Objeto literal
+
+let funcionario = {email: 'abc@abc.com'};
+
+//Imprimindo a mensagem "Armadilha aqui!", além disso, modificando o retorno do getter, fazendo-o retornar o email,
+  começando e terminando com dois asteriscos. Por exemplo, se feito: console.log(funcionario.email);
+  Deve-se retornar **abc@abc.com**
+
+  funcionario = new Proxy({email: 'abc@abc.com'},  {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+        return '**' + Reflect.get(target, prop, receiver) + '**' ;        
+    }
+
+});
+  console.log(funcionario.email);
+
+//Acima temos uma implementação que concatena os asteriscos com o retorno de Reflect.get, aquele que efetivamente executa 
+  a operação de leitura no objeto real. Ou seja, o proxy executa a leitura no objeto original e devolve para quem 
+  chamou o próprio proxy, o valor concatenado com asteriscos.

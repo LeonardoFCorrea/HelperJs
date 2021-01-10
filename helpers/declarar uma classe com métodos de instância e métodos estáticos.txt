@@ -1,0 +1,16 @@
+class Pessoa {
+
+    constructor(nome, sobrenome) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+    }
+
+    obterNomeCompleto() {
+        return `${this.nome} ${this.sobrenome}`;
+    }
+
+    static metodoStaticoQualquer() {
+        console.log('Método estático chamado');
+    }
+
+}

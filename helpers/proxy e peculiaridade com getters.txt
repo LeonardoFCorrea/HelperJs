@@ -1,0 +1,62 @@
+//Classes
+
+class Funcionario {
+
+    constructor(email) {
+        this._email = email;
+    }
+
+    get email() {
+        return this._email;
+    }
+
+    set email(email) {
+        this._email = email;
+    }
+}
+
+//proxy a partir da classe que exibe no console "Armadilha aqui" toda vez que qualquer propriedade da classe for lida.
+  
+  let funcionario = new Proxy(new Funcionario('abc@abc.com'), {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+
+        return Reflect.get(target, prop, receiver);
+    }
+
+});
+
+console.log(funcionario.email);
+
+//Se percebe que há três mensagens de log no console. As duas primeiras "Armadilha aqui!" e logo depois o email do usuário.
+  Mas qual a razão dele escrever a primeira mensagem duas vezes?
+  É por motivo de email ser um getter. O proxy irá executar seu código quando o getter for chamado e também para a 
+  propriedade _email, que é acessada pelo getter.
+  
+//Inclusive podemos deixar isso ainda mais claro, exibindo em nosso proxy 
+  o nome da propriedade:
+
+  let funcionario = new Proxy(new Funcionario('abc@abc.com'), {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+        console.log(prop);
+        return Reflect.get(target, prop, receiver);
+    }
+
+});
+
+console.log(funcionario.email);
+
+
+
+
+
+
+
+
+
+
+
+

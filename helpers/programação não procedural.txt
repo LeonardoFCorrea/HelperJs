@@ -1,0 +1,54 @@
+<!-- aluraframe/client/js/views/NegociacoesView.js -->
+<td>
+    ${model.negociacoes.reduce((total, n) => total + n.volume, 0.0)}
+</td>
+
+//Nesse ponto, foi iterado sobre a lista de negociações do modelo ListaNegociacoes aplicando a função reduce para calcular 
+  o volume total. Esta é uma solução procedural onde se temo dado ListaNegociacoes de um lado e o comportamento que calcula 
+  o volume total do outro, ou seja, em NegociacoesView.
+
+//Uma solução mais orientada a objetos é criar um getter chamado volumeTotal em ListaNegociacoes. Com essa alteração o
+  template NegociacaoView pode acessar esse getter para obter o volume total das negociações. Dessa forma, onde quer que 
+  ListaNegociacoes seja utilizada, os dados e o comportamento que calcula o volume total caminharão juntos.
+
+//Alterando aluraframe/client/js/app/models/ListaNegociacoes.js:
+
+  class ListaNegociacoes {
+
+    constructor() {
+
+        this._negociacoes = [];
+    }
+
+    adiciona(negociacao) {
+
+        this._negociacoes.push(negociacao);
+    }
+
+    get negociacoes() {
+
+        return [].concat(this._negociacoes);
+    }
+
+    esvazia() {
+
+        this._negociacoes = [];
+    }
+
+    // novo método
+    get volumeTotal() {
+       return this._negociacoes.reduce((total, n) => total + n.volume, 0.0);
+    }
+}
+
+//Agora, pedir ao modelo que nos retorne o volume total:
+
+  <!-- aluraframe/client/js/app/views/NegociacoesView.js -->
+
+  <td>
+      ${model.volumeTotal}
+  </td>
+
+
+//Obs.: O paradigma orientado a objetos ajuda bastante a organizar o código, e, sendo JavaScript uma linguagem 
+  multiparadigma podemos lançar mão de outros paradigmas quando necessário, por exemplo, o funcional.

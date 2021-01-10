@@ -1,0 +1,36 @@
+//Sem self
+
+class NegociacaoController {
+
+    constructor() {
+
+        // código anterior omitido
+
+        this._listaNegociacoes = new ListaNegociacoes(model => 
+            this._negociacoesView.update(model));
+    }
+
+    // código posterior omitido
+}
+
+
+
+//Com self(declarando a function tradicional a uma variavel self, que guardará toda a function)
+
+class NegociacaoController {
+
+    constructor() {
+
+        // a variável self guarda uma referência para this, instância de NegociacaoController
+
+        let self = this;
+
+        // aqui usei uma function tradicional, mas poderia ser uma arrow function também
+
+        this._listaNegociacoes = new ListaNegociacoes(function(model) { 
+            self._negociacoesView.update(model);
+        });
+    }
+
+    // código posterior omitido
+}

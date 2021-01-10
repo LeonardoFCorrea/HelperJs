@@ -1,0 +1,6 @@
+A extensão XML foi um legado que ficou, mas hoje em dia é menos importante e até confuso. O XMLHttpRequest foi criado pela 
+Microsoft (dentro da equipe Outlook), e o XML realmente era o mais usado na época . O Firefox implementou um objeto com o 
+mesmo nome, mas que trabalhava com a estrutura de dados JSON e que acabou se tornando muito popular.
+
+Muitas vezes, para usar AJAX, precisaremos de frameworks como o próprio jQuery, prototype ou AngularJS. Esses frameworks 
+não só abstraem detalhes sobre o XMLHttpRequest como também oferecem vários outros recursos.
