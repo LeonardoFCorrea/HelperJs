@@ -1,0 +1,24 @@
+O target é o objeto real que é encapsulado pela proxy. É este objeto que não queremos "sujar" com armadilhas ou qualquer código que não diga respeito ao modelo.
+
+O prop é a propriedade em si, que está sendo lida naquele momento.
+
+O receiver é a referência ao próprio proxy. É na configuração do handler do Proxy que colocamos armadilhas.
+
+Exemplo de trap
+
+let pessoa = {
+    nome: 'Flávio'    
+}
+
+let pessoaProxy = new Proxy(pessoa, {
+    get(target, prop, receiver) {
+         //...
+    }
+});
+
+Como segundo argumento de um proxy, passamos um handler, que é um objeto JavaScript que contém as armadilhas (traps) do 
+nosso Proxy. Neste objeto, podemos criar uma propriedade get e passar para ela uma função com 3 parâmetros.
+
+get(target, prop, receiver) {
+    //...
+}

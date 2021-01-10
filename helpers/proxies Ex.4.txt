@@ -1,0 +1,89 @@
+//Classe Pessoa, Inclusive criada mais uma vez, uma proxy para interceptar a chamada ao método "grita".
+
+  class Pessoa {
+
+    constructor(nome) {
+        this._nome = nome;
+    }
+
+    get nome() {
+        return this._nome;
+    }
+
+    set nome(nome) {
+        this._nome = nome;
+    }
+
+    grita(frase) {
+        return `${this._nome} grita ${frase}`;
+    }
+}
+
+let pessoa = new Proxy(new Pessoa('Barney'), {
+
+        get(target, prop, receiver) {
+            if(prop == 'grita' && typeof(target[prop]) == typeof(Function)) {
+
+                return function() {
+                    console.log(`Interceptei o método: ${prop}, por isso estou exbindo essa mensagem!`);    
+                    Reflect.apply(target[prop], target, arguments);       
+                }
+            }
+            return Reflect.get(target, prop, receiver);
+        }
+    });
+
+   console.log(pessoa.grita('Olá'));
+
+//O Resultado de console.log(pessoa.grita('Olá'))? é "undefined". Isso acontece porque esta chamando 
+  Reflect.apply(target[prop], target, arguments) sem retornar seu valor.
+
+//Uma solução é adicionar a cláusula "return", abaixo.
+
+  let pessoa = new Proxy(new Pessoa('Barney'), {
+
+        get(target, prop, receiver) {
+            if(prop == 'grita' && typeof(target[prop]) == typeof(Function)) {
+
+                return function() {
+                    console.log(`Interceptei o método: ${prop}, por isso estou exbindo essa mensagem!`);   
+
+                    // FALTAVA O RETURN AQUI!
+                    return Reflect.apply(target[prop], target, arguments);  // retorna o valor resultante da chamada da função
+                }
+            }
+            return Reflect.get(target, prop, receiver);
+        }
+    });
+
+//Agora, quando for feito o console.log(pessoa.grita('Olá')) o retorno do método grita de pessoa será passado para 
+  console.log, imprimindo seu resultado no console que é "Barney grita 'Olá'".
+
+//E se quiséssemos exibir o valor que será retornado no console.log do handler, deve ser feito:
+
+  let pessoa = new Proxy(new Pessoa('Barney'), {
+
+  get(target, prop, receiver) {
+
+    if(prop == 'grita' && typeof(target[prop]) == typeof(Function)) {
+
+      return function() {
+
+        console.log(`Interceptei o método: ${prop}, por isso estou exbindo essa mensagem!`);    
+
+        // aguarda o retorno em uma variável 
+        let retorno = Reflect.apply(target[prop], target, arguments);
+
+        console.log(`O valor retornado do método foi ${retorno}`);
+
+        return retorno; // retornando o resultado do método
+      }
+    }
+
+    return Reflect.get(target, prop, receiver);
+  }
+
+});
+
+  
+  

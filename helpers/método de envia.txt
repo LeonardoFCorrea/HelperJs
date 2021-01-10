@@ -1,0 +1,7 @@
+//ArquivoController.js
+
+envia() {
+    let arquivo = ArquivoHelper.cria(this._inputDados.value);
+    console.log(`Dados do arquivo: ${arquivo.nome}, ${arquivo.tamanho}, ${arquivo.tipo}`);
+    this._limpaFormulario();
+}

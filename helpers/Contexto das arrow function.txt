@@ -1,0 +1,31 @@
+Um programador de Javascript decidiu criar uma abstração de um relógio em seu código, através da classe Relogio. A ideia é 
+a seguinte: assim que ele instanciar essa classe, deve ser exibida no console a quantidade de segundos a partir da sua 
+criação. 
+
+class Relogio {
+
+    constructor() {
+        this._segundos = 0;
+        setInterval(() => console.log(++this._segundos), 1000); // usando arrow function. O this é o this de `Relogio`, e não `window`. 
+    }
+}
+
+var relogio = new Relogio();
+
+Assim, ao alterar o valor de this._segundos, estamos ainda no contexto de Relogio e o valor é acrescido corretamente. 
+E deste modo o código ficou ainda mais sucinto!
+
+/////////////////////////////////////////////////
+
+Função para mostrar a velocidade de uma variavel dentro de um objeto por "{}"
+
+<script>
+    let carro = {
+        velocidade: 100,
+        acelera :function() {
+            console.log(this);
+            console.log(`Carro a ${this.velocidade} km por hora!`);
+        }
+    };
+    carro.acelera();
+</script>

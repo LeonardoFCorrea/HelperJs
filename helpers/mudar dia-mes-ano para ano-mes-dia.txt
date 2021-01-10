@@ -1,0 +1,4 @@
+let dataString = '17-05-2016';
+
+let data = new Date(dataString.split('-').reverse().join('/'));
+console.log(data);

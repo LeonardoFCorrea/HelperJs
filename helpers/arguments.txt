@@ -1,0 +1,22 @@
+//Aprende-se em JavaScript a passar parâmetros para funções e métodos. Exemplo:
+  
+  function exibeNomeCompleto(nome, sobrenome) {
+
+  alert(`${nome} ${sobrenome}`);
+}
+
+  exibeNomeCompleto('Flávio', 'Almeida');
+
+//Contudo, consegue-se o mesmo resultado sem passar parâmetros para a função.
+
+  function exibeNomeCompleto() {
+
+  alert(`${arguments[0]} ${arguments[1]}`);
+}
+
+  exibeNomeCompleto('Flávio', 'Almeida');
+
+//Por mais que a função não receba parâmetros, pode-se ter acesso aos parâmetros passados com arguments.
+  É uma variável implícita que dá acesso a todos os parâmetros passados para a função ou método.
+  É claro que a primeira forma, nomear os parâmetros da função, é menos verbosa e mais legível. 
+  Mas há muitos hacks em JavaScript que podem fazer uso de arguments.

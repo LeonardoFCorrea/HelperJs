@@ -1,0 +1,14 @@
+
+//Classe Secretaria puxando todos os valores da classe Funcionario
+
+class Secretaria extends Funcionario {
+
+    constructor(nome, funcionario) {
+        super(nome); // cuidado, tem que ser a primeira instrução! super(nome) está pegando o valor da variavel 'nome' dentro da classe funcionario
+        this._funcionario = funcionario;
+    }
+
+    atenderTelefone() {
+        console.log(`${this._nome} atendendo telefone` );
+    }
+}
