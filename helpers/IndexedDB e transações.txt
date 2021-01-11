@@ -1,0 +1,84 @@
+//Transações do IndexedDB são auto commited: É por meio de uma transação que se tem acesso a uma store e dela pode-se 
+  realizar operações como a inclusão de um objeto. Quando essa operação é realizada com sucesso, ou seja, quando o evento
+  "onsuccess" é chamado, a transação é fechada, ou seja, as transações do IndexedDB são auto commited. É por isso que cada 
+  método do "NegociacaoDao" solicita uma transação toda vez que é chamado.
+
+/////////////////////////////////////
+
+//Pode cancelar uma transação através do método abort: Já sabe-se quando uma transação é efetivada e que este é um 
+  processo automático, no entanto nem sempre queremos que efetivá-la, ou seja, queremos abortá-la. Fazendo uma alusão aos 
+  bancos de dados relacionais, queremos ser capazes de realizar um rollback.
+
+//Para cancelar (rollback) uma transação chama-se o método abort:
+
+  ConnectionFactory.
+    .getConnection()
+    .then(connection => {
+
+            let transaction = connection.transaction(['negociacoes'], 'readwrite');
+
+            let store = transaction.objectStore('negociacoes');
+
+            let negociacao = new Negociacao(new Date(), 1, 200);
+
+            let request = store.add(negociacao);
+
+            // #### VAI CANCELAR A TRANSAÇÃO. O evento onerror será chamado.
+            transaction.abort(); 
+
+            request.onsuccess = e => {
+
+                console.log('Negociação incluida com sucesso');
+            };
+
+            request.onerror = e => {
+
+                console.log('Não foi possível incluir a negociação');
+            };
+
+
+  })
+
+//Ao executar o código a seguinte mensagem de erro será exibida no console:
+
+  DOMException: The transaction was aborted, so the 
+  request cannot be fulfilled.
+  Não foi possível incluir a negociação
+
+///////////////////////////////////////////////
+
+//Tratar o cancelamento de uma transação no evento onabort de transaction: Contudo, pode ser tratado os erros de uma 
+  transação abortada no evento onabort da transação, ao invés de ser lidado com ele em onerror.
+
+ConnectionFactory.
+    .getConnection()
+    .then(connection => {
+
+            let transaction = connection.transaction(['negociacoes'], 'readwrite');
+
+            let store = transaction.objectStore('negociacoes');
+
+            let negociacao = new Negociacao(new Date(), 1, 200);
+
+            let request = store.add(negociacao);
+
+            // #### VAI CANCELAR A TRANSAÇÃO. O evento onabort será chamado.
+
+            transaction.abort(); 
+            transaction.onabort = e => {
+                console.log(e);
+                console.log('Transação abortada');
+            };
+
+            request.onsuccess = e => {
+
+                console.log('Negociação incluida com sucesso');
+            };
+
+            request.onerror = e => {
+
+                console.log('Não foi possível incluir a negociação');
+            };
+
+
+    })
