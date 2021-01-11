@@ -1,0 +1,2 @@
+//Para lidar também com o o IndexedDB outros desenvolvedores tornaram públicas suas bibliotecas. Por exemplo: o Dexie e 
+  o Db.js. Db.js utiliza promises criando classes "factory" e "dao".
