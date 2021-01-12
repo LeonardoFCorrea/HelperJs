@@ -1,0 +1,28 @@
+//Classe que define o retângulo:
+
+class Retangulo {
+
+    constructor(base, altura) {
+
+        this.base = base;
+        this.altura = altura;
+    }
+
+    areaCalculada() {
+        return this.base * this.altura;
+    }
+}
+
+//Duas instâncias com valores iguais de base e altura:
+
+  let r1 = new Retangulo(10,5);
+  let r2 = new Retangulo(10,5);
+
+//Existem tipos primitivos em JavaScript chamado de literais que podem ser acessados como objetos quanto invocamos algum 
+  método. O encapsulamento de um primitivo por um objeto automaticamente pelo interpretador é chamado de autoboxing. Por 
+  mais que tenhamos um objeto representando um número, a comparação será pelo valor literal (primitivo) e não pela 
+  referência. Números são encapsulados pela função construtora Number.
+
+//Uma maneira de comparamos um objeto com outro é converter ambos os objetos envolvidos na comparação para String, com o 
+  auxílio de JSON.stringify, que está preparado para converter um objeto JavaScript para uma string. Essa solução é 
+  interessante quando o objeto possui muitas propriedades.

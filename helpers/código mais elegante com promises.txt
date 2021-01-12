@@ -1,0 +1,23 @@
+//Antes
+
+ConnectionFactory
+    .getConnection()
+    .then(conexao => {
+
+        let dao = new NegociacaoDao(conexao);
+        dao.adiciona(new Negociacao(new Date(), 1, 100))
+            .then(() => {
+                alert('Negociação adicionada com sucesso');            
+            });
+
+    })
+    .catch(erro => console.log(erro));
+
+//Depois
+
+ConnectionFactory
+    .getConnection()
+    .then(conexao => new NegociacaoDao(conexao))
+    .then(dao => dao.adiciona(new Negociacao(new Date(), 1, 100)))
+    .then(() => alert('Negociação adicionada com sucesso'))
+    .catch(erro => console.log(erro));
